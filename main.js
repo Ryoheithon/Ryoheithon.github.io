@@ -3,7 +3,6 @@ window.onload = () => {
 	//変数の準備
 	var file = document.getElementById('file');
 	var canvas = document.getElementById('canvas');
-	var text = document.getElementById("story");
 	var canvasWidth = 300;
 	var canvasHeight = 300;
 	var uploadImgSrc;
@@ -33,6 +32,9 @@ window.onload = () => {
 	canvas.height = canvasHeight;
 	var ctx = canvas.getContext('2d');
 
+	var subCanvas = document.createElement("canvas");
+	var subCtx = subCanvas.getContext("2d");
+
 
 
 
@@ -58,6 +60,10 @@ window.onload = () => {
 				ry = startRY;
     	    uploadImgSrc = reader.result;
     	    render();
+
+		setTimeout(() => {
+    		setInterval(createSubCtx, 400);
+    		}, 4000);
     	}
     	// ファイル読み込みを実行
     	reader.readAsDataURL(fileData);
@@ -112,6 +118,47 @@ window.onload = () => {
 
 
 
+	function createSubCtx() {
+		var subWidth = 250;
+		var subHeight = 250;
+		var fontSize = 12;
+		var x = 30;
+		var y = 60;	
+		var lineHeight = 1.1;
+		var text = document.getElementById("story").value;
+
+		subCtx.save();
+		subCtx.clearRect(0, 0, subWidth, subHeight);
+		strRotate();
+
+		subCtx.beginPath();
+		subCtx.font = "bold 12px serif";
+		subCtx.textBaseline = 'middle';
+    	subCtx.fillStyle = 'rgba(0, 0, 0, 1)';
+
+    	console.log(text);
+    	console.log(line);
+    	console.log(btn.href);
+
+		for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
+				var line = lines[i] ;
+				var addY = fontSize ;
+				if ( i ) addY += fontSize * lineHeight * i ;
+
+				subCtx.fillText( line, x + 0, y + addY ) ;
+				ctx.drawImage(subCanvas, 30, 60);
+		}
+
+		btn.href = canvas.toDataURL("image/png");
+	}
+
+
+
+
+
+
+
+
 	function handsRotate() {
 		ctx.translate(200, 80);
 	    ctx.rotate(Math.PI/180 * 5);
@@ -119,9 +166,9 @@ window.onload = () => {
 	}
 
 	function strRotate() {
-		ctx.translate(200, 80);
-	    ctx.rotate(Math.PI/180 * 5);
-	    ctx.translate(-200, -80);
+		subCtx.translate(200, 80);
+	    subCtx.rotate(Math.PI/180 * 5);
+	    subCtx.translate(-200, -80);
 	}
 
 
@@ -210,16 +257,6 @@ window.onload = () => {
 	    	ctx.restore();
 		}
 	    img3.src = "./img/right.png";
-	}
-
-	// Canvas上にテキストを表示する
-	function addText() {
-		ctx.restore();
-		ctx.save();
-		ctx.font = "48px serif"
-    	ctx.textBaseline = 'middle';
-    	ctx.fillStyle = '#000';
-    	ctx.fillText("テキスト", 150, 150);
 	}
 
 		// ファイルが指定された時にloadLocalImage()を実行
