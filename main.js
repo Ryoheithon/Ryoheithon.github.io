@@ -148,7 +148,6 @@ window.onload = () => {
 				subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 				subCtx.fillText( line, x + 0, y + addY ) ;
 		}
-		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 		ctx.drawImage(subCanvas, 0, 0);
 		btn.href = canvas.toDataURL("image/png");
 		subCtx.restore();
