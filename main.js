@@ -29,9 +29,9 @@ window.onload = () => {
 	canvas.height = canvasHeight;
 	var ctx = canvas.getContext('2d');
 
-	var subCanvas = document.getElementById("canvas2");
+	var subCanvas = document.createElement("canvas");
 	var subCtx = subCanvas.getContext("2d");
-	subCanvas.width = subCanvas.height = canvasWidth;
+	subCanvas.width = subCanvas.height = 200;
 
 
 
@@ -238,7 +238,7 @@ window.onload = () => {
 			subCtx.font = "bold 12px serif";
 			var lineHeight = 1;
     		subCtx.textBaseline = 'middle';
-    		subCtx.fillStyle = 'rgba(0, 0, 255, 1.0)';
+    		subCtx.fillStyle = 'rgba(0, 0, 255, 0)';
 
 			for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
 				var line = lines[i] ;
