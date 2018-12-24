@@ -150,6 +150,7 @@ window.onload = () => {
 		}
 
 		btn.href = canvas.toDataURL("image/png");
+		subCtx.restore();
 	}
 
 
