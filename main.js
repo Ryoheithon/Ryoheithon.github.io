@@ -135,6 +135,8 @@ window.onload = () => {
     	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
     	console.log(text);
+    	subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+		subCtx.fillText( line, x + 0, y + addY ) ;
     	requestAnimationFrame(createSubCtx);
 
     	var lines=text.split( "\n" );
@@ -142,8 +144,6 @@ window.onload = () => {
 		var line = lines[i] ;
 		var addY = fontSize ;
 		if ( i ) addY += fontSize * lineHeight * i ;
-		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-		subCtx.fillText( line, x + 0, y + addY ) ;
 		ctx.drawImage(subCanvas, 50, 50);
 		btn.href = canvas.toDataURL("image/png");
 		subCtx.restore();
