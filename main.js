@@ -2,9 +2,11 @@ window.onload = () => {
 
 	//変数の準備
 	var file = document.getElementById('file');
-	var canvas = document.getElementById('canvas');
+	var canvas = document.getElementById('canvas1');
+	var btn = document.getElementById("btn");
 	var canvasWidth = 300;
 	var canvasHeight = 300;
+	var TRIM_SIZE = 300;
 	var uploadImgSrc;
 	var startLX = -220;
 	var startLY = 110;
@@ -14,11 +16,6 @@ window.onload = () => {
 	var startRY = -165;
 	var endRX = -5;
 	var endRY = -115;
-	var lx = startLX;
-	var ly = startLY;
-	var rx = startRX;
-	var ry = startRY;
-	var TRIM_SIZE = 300;
 
 	var diffLX = endLX - startLX;
 	var diffLY = endLY - startLY;
@@ -26,20 +23,15 @@ window.onload = () => {
 	var diffRY = endRY - startRY;
 	var time = 1000;
 
-	//SubCanvas用
-	var subWidth = 250;
-	var subHeight = 250;
-
-
 
 	// Canvasの準備
 	canvas.width = canvasWidth;
 	canvas.height = canvasHeight;
 	var ctx = canvas.getContext('2d');
 
-	var subCanvas = document.createElement("canvas");
+	var subCanvas = document.getElementById("canvas2");
 	var subCtx = subCanvas.getContext("2d");
-
+	subCanvas.width = subCanvas.height = 1100;
 
 
 
@@ -66,14 +58,24 @@ window.onload = () => {
     	    uploadImgSrc = reader.result;
     	    render();
 
-		setTimeout(createSubCtx, 4000);
     	}
     	// ファイル読み込みを実行
     	reader.readAsDataURL(fileData);
+    	setTimeout(() => {
+    		setInterval(addText, 400);
+    	}, 2000);
 	}
 
 
 	function render() {
+		canvasDrawImage();
+		canvasDrawLeft();
+		canvasDrawRight();
+		setTimeout(() => {grayScale();}, 1000);
+	}
+
+
+	function renderCOPY() {
 		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 		canvasDrawImage();
 		var count = 0;
@@ -97,61 +99,8 @@ window.onload = () => {
 				}, 150);
 			}
 		onTimeout();
-		setTimeout(() => {grayScale();}, 2000);
+	    setTimeout(() => {grayScale();}, 1000);
 	}
-
-
-	function renderCOPY() {
-		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-		canvasDrawImage();
-		for(var p = 0; p < 10; p++){
-			setTimeout(() => {
-				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-				canvasDrawImage();
-				canvasDrawLeft();
-				canvasDrawRight();
-				lx = startLX + 50;
-				ly = startLY - 50;
-				rx = startRX - 50;
-				ry = startRY + 50;
-			}, 1000);
-		}
-	}
-
-
-
-
-	function createSubCtx() {
-		var fontSize = 12;
-		var x = 30;
-		var y = 30;	
-		var lineHeight = 1.1;
-		var text = document.getElementById("story").value;
-		subCtx.save();
-		strRotate();
-		subCtx.beginPath();
-		subCtx.font = "bold 16px serif";
-		subCtx.textBaseline = 'middle';
-    	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
-
-    	console.log(text);
-    	requestAnimationFrame(createSubCtx);
-    	var lines=text.split( "\n" );
-    	var i = 0;
-		var line = lines[i] ;
-		var addY = fontSize ;
-		if ( i ) addY += fontSize * lineHeight * i ;
-		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-		subCtx.fillText( line, x + 0, y + addY ) ;
-		ctx.drawImage(subCanvas, 50, 50);
-		btn.href = canvas.toDataURL("image/png");
-		subCtx.restore();
-	}
-
-
-
-
-
 
 
 
@@ -163,7 +112,7 @@ window.onload = () => {
 
 	function strRotate() {
 		subCtx.translate(200, 80);
-	    subCtx.rotate(Math.PI/180 * 2);
+	    subCtx.rotate(Math.PI/180 * 4);
 	    subCtx.translate(-200, -80);
 	}
 
@@ -215,7 +164,7 @@ window.onload = () => {
 	    var img1 = new Image();
 	    img1.src = uploadImgSrc;
 	    img1.onload = function() {
-	        if (img1.width > img1.height) {
+	    	if (img1.width > img1.height) {
             h = TRIM_SIZE;
             w = img1.width * (TRIM_SIZE / img1.height);
             xOffset = -(w - TRIM_SIZE) / 2;
@@ -227,6 +176,7 @@ window.onload = () => {
             xOffset = 0;
         }
         ctx.drawImage(img1, xOffset, yOffset, w, h);
+
 	    }
 	}
 
@@ -235,7 +185,7 @@ window.onload = () => {
 	    img2.onload = function() {
 	    	ctx.save();
 	    	handsRotate();
-	        ctx.drawImage(img2, lx, ly, 470, 400);
+	        ctx.drawImage(img2, endLX, endLY, 470, 400);
 	    	ctx.restore();
 	    }
 
@@ -249,14 +199,83 @@ window.onload = () => {
 	    img3.onload = function() {
 	    	ctx.save();
 			handsRotate();
-	    	ctx.drawImage(img3, rx, ry, 500, 370);
+	    	ctx.drawImage(img3, endRX, endRY, 500, 370);
 	    	ctx.restore();
 		}
 	    img3.src = "./img/right.png";
 	}
 
+	// Canvas上にテキストを表示する
+	function addTextCOPY() {
+		var text = document.getElementById("story").value;
+			render();
+			strRotate;
+			console.log(text);
+			var fontSize = 12;
+			var x = 30;
+			var y = 60;
+			ctx.beginPath();
+			ctx.font = "bold 12px serif";
+			var lineHeight = 1;
+    		ctx.textBaseline = 'middle';
+    		ctx.fillStyle = 'rgba(0, 0, 255, 1.0)';
+
+			for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
+				var line = lines[i] ;
+				var addY = fontSize ;
+				console.log(line);
+			    console.log(addY);
+				if ( i ) addY += fontSize * lineHeight * i ;
+
+				ctx.fillText( line, x + 0, y + addY ) ;
+				btn.href = canvas.toDataURL("image/png");
+				console.log(btn.href);
+			}
+
+	}
+
+
+
+	function addText() {
+		var text = document.getElementById("story").value;
+			subCtx.clearRect(0, 0, 9999, 9999);
+			console.log(text);
+			var fontSize = 52;
+			var x = 550;
+			var y = 480;
+			subCtx.save();
+			strRotate();
+			subCtx.beginPath();
+			subCtx.font = "bold 52px 游ゴシック";
+			var lineHeight = 1.2;
+    		subCtx.textBaseline = 'middle';
+    		subCtx.textAlign = "center";
+    		subCtx.fillStyle = 'rgba(255, 255, 255, 1.0)';
+
+			for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
+				var line = lines[i] ;
+				var addY = fontSize ;
+				var textWidth = subCtx.measureText(line).width;
+				console.log(textWidth);
+				if ( i ) addY += fontSize * lineHeight * i ;
+				if (l > 1) addY -= fontSize * l / 2 ;
+				if (text % 17 === 0) text + "\n";
+				subCtx.fillText( line, x + 0, y + addY ) ;
+			}
+			subCtx.restore();
+			console.log(line);
+			console.log(addY);
+	}
+
 		// ファイルが指定された時にloadLocalImage()を実行
 	file.addEventListener('change', loadLocalImage, false);
 
+	btn.addEventListener("click", downloadImg, false);
 
-}
+	function downloadImg() {
+			ctx.drawImage(subCanvas, 0, 0);
+			var newImg = canvas.toDataURL("image/png");
+			btn.setAttribute("href", newImg);
+			console.log(btn.href);
+	}
+} 
