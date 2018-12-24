@@ -62,7 +62,10 @@ window.onload = () => {
     	    render();
 
 		setTimeout(() => {
-    		setInterval(createSubCtx, 400);
+    		setInterval(() => {
+    			subCtx.clearRect(0, 0, 300, 300);
+    			createSubCtx();
+    		},400);
     		}, 4000);
     	}
     	// ファイル読み込みを実行
@@ -119,7 +122,6 @@ window.onload = () => {
 
 
 	function createSubCtx() {
-		subCtx.clearRect(0, 0, subWidth, subHeight);
 		var subWidth = 250;
 		var subHeight = 250;
 		var fontSize = 12;
@@ -144,7 +146,6 @@ window.onload = () => {
 				var line = lines[i] ;
 				var addY = fontSize ;
 				if ( i ) addY += fontSize * lineHeight * i ;
-
 		}
 		subCtx.fillText( line, x + 0, y + addY ) ;
 		ctx.drawImage(subCanvas, 0, 0);
