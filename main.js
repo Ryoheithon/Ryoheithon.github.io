@@ -29,8 +29,8 @@ window.onload = () => {
 	canvas.height = canvasHeight;
 	var ctx = canvas.getContext('2d');
 
-	var subCanvas = document.createElement("canvas");
-	var subCtx = subCanvas.getContext("2d");
+	subCanvas = document.createElement("canvas"),
+    subCtx = subCanvas.getContext("2d");
 	subCanvas.width = subCanvas.height = 200;
 
 
