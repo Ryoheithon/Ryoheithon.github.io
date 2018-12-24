@@ -28,8 +28,8 @@ body {
 
 #logo {
 	border-radius: 6px;
-	width: 80%;
-	height: 50px;
+	width: 100px;
+	height: 100px;
 }
 
 .logo {
@@ -70,8 +70,6 @@ label {
 
 
 #story {
-	top: 570px;
-	left: 5px;
 	margin: 30px auto;
 	border-radius: 6px;
 	width: 100%;
@@ -87,9 +85,7 @@ label {
   outline: none;
 }
 
-
 #btn {
-  top: 700px;
   display: block;
   border-bottom: solid #333 4px;
   border-radius: 12px;
