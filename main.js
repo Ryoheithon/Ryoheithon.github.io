@@ -124,7 +124,7 @@ window.onload = () => {
 	function createSubCtx() {
 		var fontSize = 12;
 		var x = 30;
-		var y = 70;	
+		var y = 30;	
 		var lineHeight = 1.1;
 		var text = document.getElementById("story").value;
 		subCtx.save();
@@ -135,16 +135,16 @@ window.onload = () => {
     	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
     	console.log(text);
-    	    	requestAnimationFrame(createSubCtx);
+    	requestAnimationFrame(createSubCtx);
 
-    	for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
-				var line = lines[i] ;
-				var addY = fontSize ;
-				if ( i ) addY += fontSize * lineHeight * i ;
-				subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-				subCtx.fillText( line, x + 0, y + addY ) ;
-		}
-		ctx.drawImage(subCanvas, 100, 100);
+    	var lines=text.split( "\n" );
+    	var i = 0;
+		var line = lines[i] ;
+		var addY = fontSize ;
+		if ( i ) addY += fontSize * lineHeight * i ;
+		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+		subCtx.fillText( line, x + 0, y + addY ) ;
+		ctx.drawImage(subCanvas, 50, 50);
 		btn.href = canvas.toDataURL("image/png");
 		subCtx.restore();
 	}
@@ -164,7 +164,7 @@ window.onload = () => {
 
 	function strRotate() {
 		subCtx.translate(200, 80);
-	    subCtx.rotate(Math.PI/180 * 5);
+	    subCtx.rotate(Math.PI/180 * 2);
 	    subCtx.translate(-200, -80);
 	}
 
