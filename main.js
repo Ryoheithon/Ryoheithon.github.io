@@ -132,13 +132,14 @@ window.onload = () => {
 		subCtx.beginPath();
 		subCtx.font = "bold 16px serif";
 		subCtx.textBaseline = 'middle';
-    		subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
+    	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
-    		console.log(text);
-    		requestAnimationFrame(createSubCtx);
-    		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+    	console.log(text);
+    	console.log(btn.href);
+    	requestAnimationFrame(createSubCtx);
+    	subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-		(story.text || "").split( "\n" ).forEach((l, i) => {
+		(text || "").split( "\n" ).forEach((l, i) => {
 			subCtx.fillText(l, x + 0, lineHeight * i);
 		});
 		ctx.drawImage(subCanvas, 0, 0);
