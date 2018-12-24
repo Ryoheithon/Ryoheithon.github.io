@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>#いいねにかくれた物語</title>
+		<script src="main.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="main.css">
+	</head>
+	<body>
+		<div id="wrapper">
+				<div class="logo">
+				<img src="./img/logo4.png" id="logo">
+				</div>
+				<label for="file">
+					写真をえらんでね
+					<input type="file" id="file" width="80"/>
+				</label>
+				<div class="canvas_wrapper">
+				<canvas id="canvas1" class="canvas" width="550" height="550"></canvas>
+				<canvas id="canvas2" class="canvas" width="550" height="550"></canvas>
+				</div>
+				<p>
+					<textarea id="story" class="story " placeholder="ここに140文字以内の物語をかいてね" maxlength="140">ありがとう</textarea>
+					<span>(140文字を超える分は消えちゃいます！)</span>
+				</p>
+				<a id="btn" class="btn btn-save" href="" download="いいねにかくれた物語">画像を保存！</a>
+		</div>
+	</body>
+</html>
