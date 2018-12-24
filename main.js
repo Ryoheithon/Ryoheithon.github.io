@@ -135,14 +135,14 @@ window.onload = () => {
     	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
     	console.log(text);
-    	console.log(btn.href);
-    	requestAnimationFrame(createSubCtx);
-    	subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-		(text || "").split( "\n" ).forEach((l, i) => {
+    	(text || "").split( "\n" ).forEach((l, i) => {
 			subCtx.fillText(l, x + 0, lineHeight * i);
 		});
 		ctx.drawImage(subCanvas, 0, 0);
+
+    	requestAnimationFrame(createSubCtx);
+		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 		btn.href = canvas.toDataURL("image/png");
 		subCtx.restore();
 	}
