@@ -63,7 +63,6 @@ window.onload = () => {
 
 		setTimeout(() => {
     		setInterval(() => {
-    			subCtx.clearRect(0, 0, 300, 300);
     			createSubCtx();
     		},400);
     		}, 4000);
@@ -134,9 +133,9 @@ window.onload = () => {
 		strRotate();
 
 		subCtx.beginPath();
-		subCtx.font = "bold 12px serif";
+		subCtx.font = "bold 16px serif";
 		subCtx.textBaseline = 'middle';
-    	subCtx.fillStyle = 'rgba(0, 0, 0, 1)';
+    	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
     	console.log(text);
     	console.log(line);
@@ -146,8 +145,10 @@ window.onload = () => {
 				var line = lines[i] ;
 				var addY = fontSize ;
 				if ( i ) addY += fontSize * lineHeight * i ;
+				subCtx.clearRect(0, 0, 300, 300);
+				subCtx.fillText( line, x + 0, y + addY ) ;
 		}
-		subCtx.fillText( line, x + 0, y + addY ) ;
+
 		ctx.drawImage(subCanvas, 0, 0);
 		btn.href = canvas.toDataURL("image/png");
 		subCtx.restore();
