@@ -29,11 +29,7 @@ window.onload = () => {
 	//SubCanvas用
 	var subWidth = 250;
 	var subHeight = 250;
-	var fontSize = 12;
-	var x = 30;
-	var y = 70;	
-	var lineHeight = 1.1;
-	var text = document.getElementById("story").value;
+
 
 
 	// Canvasの準備
@@ -126,17 +122,21 @@ window.onload = () => {
 
 
 	function createSubCtx() {
+		var fontSize = 12;
+		var x = 30;
+		var y = 70;	
+		var lineHeight = 1.1;
+		var text = document.getElementById("story").value;
 		subCtx.save();
 		strRotate();
 		subCtx.beginPath();
 		subCtx.font = "bold 16px serif";
 		subCtx.textBaseline = 'middle';
-    	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
+    		subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
-    	console.log(text);
-    	console.log(btn.href);
-    	requestAnimationFrame(createSubCtx);
-    	subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+    		console.log(text);
+    		requestAnimationFrame(createSubCtx);
+    		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 		(story.text || "").split( "\n" ).forEach((l, i) => {
 			subCtx.fillText(l, x + 0, lineHeight * i);
