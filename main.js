@@ -125,7 +125,7 @@ window.onload = () => {
 		var subHeight = 250;
 		var fontSize = 12;
 		var x = 30;
-		var y = 60;	
+		var y = 70;	
 		var lineHeight = 1.1;
 		var text = document.getElementById("story").value;
 
@@ -145,10 +145,10 @@ window.onload = () => {
 				var line = lines[i] ;
 				var addY = fontSize ;
 				if ( i ) addY += fontSize * lineHeight * i ;
-				subCtx.clearRect(0, 0, 300, 300);
+				subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 				subCtx.fillText( line, x + 0, y + addY ) ;
 		}
-
+		subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 		ctx.drawImage(subCanvas, 0, 0);
 		btn.href = canvas.toDataURL("image/png");
 		subCtx.restore();
