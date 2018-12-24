@@ -26,6 +26,15 @@ window.onload = () => {
 	var diffRY = endRY - startRY;
 	var time = 1000;
 
+	//SubCanvas用
+	var subWidth = 250;
+	var subHeight = 250;
+	var fontSize = 12;
+	var x = 30;
+	var y = 70;	
+	var lineHeight = 1.1;
+	var text = document.getElementById("story").value;
+
 
 	// Canvasの準備
 	canvas.width = canvasWidth;
@@ -61,11 +70,7 @@ window.onload = () => {
     	    uploadImgSrc = reader.result;
     	    render();
 
-		setTimeout(() => {
-    		setInterval(() => {
-    			createSubCtx();
-    		},400);
-    		}, 4000);
+		setTimeout(createSubCtx, 4000);
     	}
     	// ファイル読み込みを実行
     	reader.readAsDataURL(fileData);
@@ -121,33 +126,21 @@ window.onload = () => {
 
 
 	function createSubCtx() {
-		var subWidth = 250;
-		var subHeight = 250;
-		var fontSize = 12;
-		var x = 30;
-		var y = 70;	
-		var lineHeight = 1.1;
-		var text = document.getElementById("story").value;
-
 		subCtx.save();
 		strRotate();
-
 		subCtx.beginPath();
 		subCtx.font = "bold 16px serif";
 		subCtx.textBaseline = 'middle';
     	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
     	console.log(text);
-    	console.log(line);
     	console.log(btn.href);
+    	requestAnimationFrame(createSubCtx);
+    	subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-		for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
-				var line = lines[i] ;
-				var addY = fontSize ;
-				if ( i ) addY += fontSize * lineHeight * i ;
-				subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-				subCtx.fillText( line, x + 0, y + addY ) ;
-		}
+		(story.text || "").split( "\n" ).forEach((l, i) => {
+			subCtx.fillText(l, x + 0, lineHeight * i);
+		});
 		ctx.drawImage(subCanvas, 0, 0);
 		btn.href = canvas.toDataURL("image/png");
 		subCtx.restore();
