@@ -119,6 +119,7 @@ window.onload = () => {
 
 
 	function createSubCtx() {
+		subCtx.clearRect(0, 0, subWidth, subHeight);
 		var subWidth = 250;
 		var subHeight = 250;
 		var fontSize = 12;
@@ -128,7 +129,6 @@ window.onload = () => {
 		var text = document.getElementById("story").value;
 
 		subCtx.save();
-		subCtx.clearRect(0, 0, subWidth, subHeight);
 		strRotate();
 
 		subCtx.beginPath();
