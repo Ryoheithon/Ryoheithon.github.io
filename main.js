@@ -3,10 +3,9 @@ window.onload = () => {
 	//変数の準備
 	var file = document.getElementById('file');
 	var canvas = document.getElementById('canvas');
-	var btn = document.getElementById("btn");
+	var text = document.getElementById("story");
 	var canvasWidth = 300;
 	var canvasHeight = 300;
-	var TRIM_SIZE = 300;
 	var uploadImgSrc;
 	var startLX = -220;
 	var startLY = 110;
@@ -16,6 +15,10 @@ window.onload = () => {
 	var startRY = -165;
 	var endRX = -5;
 	var endRY = -115;
+	var lx = startLX;
+	var ly = startLY;
+	var rx = startRX;
+	var ry = startRY;
 
 	var diffLX = endLX - startLX;
 	var diffLY = endLY - startLY;
@@ -29,9 +32,6 @@ window.onload = () => {
 	canvas.height = canvasHeight;
 	var ctx = canvas.getContext('2d');
 
-	subCanvas = document.createElement("canvas"),
-    subCtx = subCanvas.getContext("2d");
-	subCanvas.width = subCanvas.height = 200;
 
 
 
@@ -57,13 +57,9 @@ window.onload = () => {
 				ry = startRY;
     	    uploadImgSrc = reader.result;
     	    render();
-
     	}
     	// ファイル読み込みを実行
     	reader.readAsDataURL(fileData);
-    	setTimeout(() => {
-    		setInterval(addText, 400);
-    	}, 4000);
 	}
 
 
@@ -88,39 +84,30 @@ window.onload = () => {
 						canvasDrawRight(rx, ry);
 						console.log(count);
 				    }
-				}, 200);
+				}, 150);
 			}
 		onTimeout();
-	    setTimeout(() => {grayScale();}, 1000);
+		setTimeout(() => {grayScale();}, 2000);
 	}
 
 
 	function renderCOPY() {
 		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 		canvasDrawImage();
-		var count = 0;
-		var onTimeout = function() {
-				setInterval(() => {
-					count++;
-					if(count > 10) {
-						clearInterval();
-				    } else {
-				    	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-						canvasDrawImage();
-						lx += 5;
-						ly -= 5;
-						rx -= 5;
-						ry += 5;
-						console.log(lx);
-						canvasDrawLeft(lx, ly);
-						canvasDrawRight(rx, ry);
-						console.log(count);
-				    }
-				}, 150);
-			}
-		onTimeout();
-	    setTimeout(() => {grayScale();}, 1000);
+		for(var p = 0; p < 10; p++){
+			setTimeout(() => {
+				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+				canvasDrawImage();
+				canvasDrawLeft();
+				canvasDrawRight();
+				lx = startLX + 50;
+				ly = startLY - 50;
+				rx = startRX - 50;
+				ry = startRY + 50;
+			}, 1000);
+		}
 	}
+
 
 
 
@@ -131,9 +118,9 @@ window.onload = () => {
 	}
 
 	function strRotate() {
-		subCtx.translate(200, 80);
-	    subCtx.rotate(Math.PI/180 * 2);
-	    subCtx.translate(-200, -80);
+		ctx.translate(200, 80);
+	    ctx.rotate(Math.PI/180 * 5);
+	    ctx.translate(-200, -80);
 	}
 
 
@@ -184,7 +171,7 @@ window.onload = () => {
 	    var img1 = new Image();
 	    img1.src = uploadImgSrc;
 	    img1.onload = function() {
-	    	if (img1.width > img1.height) {
+	        if (img1.width > img1.height) {
             h = TRIM_SIZE;
             w = img1.width * (TRIM_SIZE / img1.height);
             xOffset = -(w - TRIM_SIZE) / 2;
@@ -196,7 +183,6 @@ window.onload = () => {
             xOffset = 0;
         }
         ctx.drawImage(img1, xOffset, yOffset, w, h);
-    
 	    }
 	}
 
@@ -227,33 +213,16 @@ window.onload = () => {
 
 	// Canvas上にテキストを表示する
 	function addText() {
-		var text = document.getElementById("story").value;
-			subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-			strRotate;
-			console.log(text);
-			var fontSize = 12;
-			var x = 30;
-			var y = 60;
-			subCtx.beginPath();
-			subCtx.font = "bold 12px serif";
-			var lineHeight = 1;
-    		subCtx.textBaseline = 'middle';
-    		subCtx.fillStyle = 'rgba(0, 0, 255, 0)';
-
-			for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
-				var line = lines[i] ;
-				var addY = fontSize ;
-				if ( i ) addY += fontSize * lineHeight * i ;
-
-				subCtx.fillText( line, x + 0, y + addY ) ;
-				ctx.drawImage(subCanvas, 30, 60);
-				btn.href = canvas.toDataURL("image/png");
-				console.log(btn.href);
-			}
-			console.log(line);
-			console.log(addY);
+		ctx.restore();
+		ctx.save();
+		ctx.font = "48px serif"
+    	ctx.textBaseline = 'middle';
+    	ctx.fillStyle = '#000';
+    	ctx.fillText("テキスト", 150, 150);
 	}
 
 		// ファイルが指定された時にloadLocalImage()を実行
 	file.addEventListener('change', loadLocalImage, false);
+
+
 }
