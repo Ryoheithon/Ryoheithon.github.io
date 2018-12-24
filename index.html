@@ -12,15 +12,17 @@
 				<img src="./img/logo4.png" id="logo">
 				</div>
 				<label for="file">
-					写真をえらんでね
+					写真をアップロード
 					<input type="file" id="file" width="80"/>
 				</label>
-				<canvas id="canvas" width="550" height="550"></canvas>
+				<div class="canvas_wrapper">
+				<canvas id="canvas1" class="canvas" width="550" height="550"></canvas>
+				<canvas id="canvas2" class="canvas" width="800" height="800"></canvas>
+				</div>
 				<p>
-					<textarea id="story" class="story " placeholder="ここに140文字以内の物語をかいてね" maxlength="140"></textarea>
-					<span>(140文字を超える分は消えちゃいます！)</span>
+					<textarea id="story" class="story " placeholder="改行を押すと、物語も改行されるよ" maxlength="140" cols="17"></textarea>
 				</p>
-				<a id="btn" class="btn btn-save" href="" download="">画像を保存！</a>
+				<a id="btn" class="btn btn-save" download="いいねにかくれた物語">画像を保存</a>
 		</div>
 	</body>
 </html>
