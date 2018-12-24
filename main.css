@@ -69,19 +69,8 @@ label {
 }
 
 
-#canvas1 {
-	position: absolute;
-	z-index: 1;
-}
-
-#canvas2 {
-	position: absolute;
-	z-index: 2;
-}
-
 
 #story {
-	position: absolute;
 	top: 570px;
 	left: 5px;
 	margin: 30px auto;
@@ -99,12 +88,8 @@ label {
   outline: none;
 }
 
-p {
-	position: relative;
-}
 
 #btn {
-  position: absolute;
   top: 700px;
   display: block;
   border-bottom: solid #333 4px;
