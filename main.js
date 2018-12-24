@@ -19,6 +19,7 @@ window.onload = () => {
 	var ly = startLY;
 	var rx = startRX;
 	var ry = startRY;
+	var TRIM_SIZE = 300;
 
 	var diffLX = endLX - startLX;
 	var diffLY = endLY - startLY;
