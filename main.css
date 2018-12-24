@@ -61,13 +61,12 @@ label {
 }
 
 
-.canvas {
+#canvas {
 	margin: 30px auto;
 	display: block;
 	width: 100%;
 	border: #a8a8a8 2px solid;
 }
-
 
 
 #story {
