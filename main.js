@@ -2,7 +2,7 @@ window.onload = () => {
 
 	//変数の準備
 	var file = document.getElementById('file');
-	var canvas = document.getElementById('canvas1');
+	var canvas = document.getElementById('canvas');
 	var btn = document.getElementById("btn");
 	var canvasWidth = 300;
 	var canvasHeight = 300;
