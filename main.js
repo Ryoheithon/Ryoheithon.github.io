@@ -135,10 +135,9 @@ window.onload = () => {
     	subCtx.fillStyle = 'rgba(255, 255, 255, 1)';
 
     	console.log(text);
-    	subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
 		subCtx.fillText( line, x + 0, y + addY ) ;
     	requestAnimationFrame(createSubCtx);
-
+    	subCtx.clearRect(0, 0, canvasWidth, canvasHeight);
     	var lines=text.split( "\n" );
     	var i = 0;
 		var line = lines[i] ;
