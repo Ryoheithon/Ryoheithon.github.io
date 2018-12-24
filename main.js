@@ -4,18 +4,18 @@ window.onload = () => {
 	var file = document.getElementById('file');
 	var canvas = document.getElementById('canvas1');
 	var btn = document.getElementById("btn");
-	var canvasWidth = 300;
-	var canvasHeight = 300;
-	var TRIM_SIZE = 300;
+	var canvasWidth = 1100;
+	var canvasHeight = 1100;
+	var TRIM_SIZE = 1100;
 	var uploadImgSrc;
 	var startLX = -220;
 	var startLY = 110;
-	var endLX = -170;
-	var endLY = 60;
+	var endLX = -540;
+	var endLY = 170;
 	var startRX = 45;
 	var startRY = -165;
-	var endRX = -5;
-	var endRY = -115;
+	var endRX = 30;
+	var endRY = -450;
 
 	var diffLX = endLX - startLX;
 	var diffLY = endLY - startLY;
@@ -121,7 +121,7 @@ window.onload = () => {
 	function grayScale() {
 		var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         var data = imageData.data;
-        var dataMiddle = data.slice(33000, 300000);
+        var dataMiddle = data.slice(443000, 4035000);
 
         var num = dataMiddle.length;
         var pix = num / 4;
@@ -148,7 +148,7 @@ window.onload = () => {
         console.log(imageData);
         console.log(dataMiddle);
 
-        data.set(dataMiddle, 33000);
+        data.set(dataMiddle, 443000);
 
         console.log(data);
         ctx.putImageData(imageData, 0, 0);
@@ -185,7 +185,7 @@ window.onload = () => {
 	    img2.onload = function() {
 	    	ctx.save();
 	    	handsRotate();
-	        ctx.drawImage(img2, endLX, endLY, 470, 400);
+	        ctx.drawImage(img2, endLX, endLY, 1645, 1400);
 	    	ctx.restore();
 	    }
 
@@ -199,7 +199,7 @@ window.onload = () => {
 	    img3.onload = function() {
 	    	ctx.save();
 			handsRotate();
-	    	ctx.drawImage(img3, endRX, endRY, 500, 370);
+	    	ctx.drawImage(img3, endRX, endRY, 1750, 1295);
 	    	ctx.restore();
 		}
 	    img3.src = "./img/right.png";
