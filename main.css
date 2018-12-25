@@ -2,7 +2,7 @@ body {
 	text-align: center;
 	background: linear-gradient(-45deg, #d1fdff, #fddb92, #efefef, #bcbcbc);
 
-  	background-size: 1200% 1200%;
+  	background-size: 1500% 1500%;
   	animation: GradationTest 75s infinite;
 	display: block;
 	margin: 0;
