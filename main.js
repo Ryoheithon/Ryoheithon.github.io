@@ -248,7 +248,7 @@ window.onload = () => {
 			subCtx.save();
 			strRotate();
 			subCtx.beginPath();
-			subCtx.font = 'bold 52px "游ゴシック体", "YuGothic", "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", "メイリオ", "sans-serif"';
+			subCtx.font = 'bold 52px "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", "游ゴシック体", "YuGothic", "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", "メイリオ", "sans-serif"';
 			var lineHeight = 1.4;
     		subCtx.textBaseline = 'middle';
     		subCtx.textAlign = "center";
