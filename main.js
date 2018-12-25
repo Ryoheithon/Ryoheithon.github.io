@@ -10,12 +10,12 @@ window.onload = () => {
 	var uploadImgSrc;
 	var startLX = -220;
 	var startLY = 110;
-	var endLX = -540;
-	var endLY = 170;
+	var endLX = -565;
+	var endLY = 163;
 	var startRX = 45;
 	var startRY = -165;
-	var endRX = 30;
-	var endRY = -450;
+	var endRX = 15;
+	var endRY = -480;
 
 	var diffLX = endLX - startLX;
 	var diffLY = endLY - startLY;
@@ -121,7 +121,7 @@ window.onload = () => {
 	function grayScale() {
 		var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         var data = imageData.data;
-        var dataMiddle = data.slice(443000, 4035000);
+        var dataMiddle = data.slice(717200, 4035000);
 
         var num = dataMiddle.length;
         var pix = num / 4;
@@ -137,18 +137,19 @@ window.onload = () => {
         	var r = dataMiddle[i*4];
         	var g = dataMiddle[i*4 + 1];
         	var b = dataMiddle[i*4 + 2];
+        	var a = dataMiddle[i*4 + 3];
 
         	var g = parseInt((r*30 + g*59 + b*11) / 100);
         	dataMiddle[i*4] = g;
         	dataMiddle[i*4 + 1] = g;        	        	        	
-        	dataMiddle[i*4 + 2] = g; 	        	        	
+        	dataMiddle[i*4 + 2] = g;	        	
         }
 
         console.log(data);
         console.log(imageData);
         console.log(dataMiddle);
 
-        data.set(dataMiddle, 443000);
+        data.set(dataMiddle, 717200);
 
         console.log(data);
         ctx.putImageData(imageData, 0, 0);
@@ -185,7 +186,7 @@ window.onload = () => {
 	    img2.onload = function() {
 	    	ctx.save();
 	    	handsRotate();
-	        ctx.drawImage(img2, endLX, endLY, 1645, 1400);
+	        ctx.drawImage(img2, endLX, endLY, 1710, 1450);
 	    	ctx.restore();
 	    }
 
@@ -199,7 +200,7 @@ window.onload = () => {
 	    img3.onload = function() {
 	    	ctx.save();
 			handsRotate();
-	    	ctx.drawImage(img3, endRX, endRY, 1750, 1295);
+	    	ctx.drawImage(img3, endRX, endRY, 1800, 1332);
 	    	ctx.restore();
 		}
 	    img3.src = "./img/right.png";
@@ -242,7 +243,7 @@ window.onload = () => {
 			console.log(text);
 			var fontSize = 52;
 			var x = 550;
-			var y = 480;
+			var y = 450;
 			subCtx.save();
 			strRotate();
 			subCtx.beginPath();
