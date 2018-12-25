@@ -1,287 +1,129 @@
-window.onload = () => {
+body {
+	text-align: center;
+	background: linear-gradient(45deg, #ffe5ff);
+  	background-size: 600% 600%;
+  	animation: GradationTest 50s infinite;
+	display: block;
+	margin: 0;
+	font-size: 16px;
+	font-family: Verdana, Roboto, "Droid Sans", "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", sans-serif;
+	word-wrap: break-word;
+}
 
-	//変数の準備
-	var file = document.getElementById('file');
-	var canvas = document.getElementById('canvas1');
-	var btn = document.getElementById("btn");
-	var canvasWidth = 1100;
-	var canvasHeight = 1100;
-	var TRIM_SIZE = 1100;
-	var uploadImgSrc;
-	var startLX = -220;
-	var startLY = 110;
-	var endLX = -565;
-	var endLY = 163;
-	var startRX = 45;
-	var startRY = -165;
-	var endRX = 15;
-	var endRY = -480;
+@Keyframes GradationTest {
+	  0% { background-color: #ffe5ff; }
+	  20% { background-color: #ffe5cc; }
+	  40% { background-color: #ffffef	; }
+  	  60% { background-color: #ccffff; }
+  	  80% { background-color: #cccccc; }
+	  100% { background-color: #ffe5ff; }
+}
 
-	var diffLX = endLX - startLX;
-	var diffLY = endLY - startLY;
-	var diffRX = endRX - startRX;
-	var diffRY = endRY - startRY;
-	var time = 1000;
+#wrapper {
+	box-sizing: border-box;
+    position: relative;
+    margin: auto;
+    padding: 8px;
+    max-width: 550px;
+}
 
+#logo {
+	border-radius: 6px;
+	width: 100%;
+	height: 80px;
+}
 
-	// Canvasの準備
-	canvas.width = canvasWidth;
-	canvas.height = canvasHeight;
-	var ctx = canvas.getContext('2d');
+.logo {
+	text-align: center;
+	margin: auto;
+	padding-bottom: 20px;
+}
 
-	var subCanvas = document.getElementById("canvas2");
-	var subCtx = subCanvas.getContext("2d");
-	subCanvas.width = subCanvas.height = 1100;
+h3 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
 
+a {
+  color: #1ea4fc;
+}
 
-
-
-	function loadLocalImage(e) {
-	    // ファイル情報を取得
-    	var fileData = e.target.files[0];
-
-    // 画像ファイル以外は処理を止める
-    	if(!fileData.type.match('image.*')) {
-        	alert('画像を選択してください');
-        	return;
-    	}
-
-    	// FileReaderオブジェクトを使ってファイル読み込み
-    	var reader = new FileReader();
-    	// ファイル読み込みに成功したときの処理
-    	reader.onload = function() {
-    	    // Canvas上に表示する
-    	    	lx = startLX;
-				ly = startLY;
-				rx = startRX;
-				ry = startRY;
-    	    uploadImgSrc = reader.result;
-    	    render();
-
-    	}
-    	// ファイル読み込みを実行
-    	reader.readAsDataURL(fileData);
-    	setTimeout(() => {
-    		setInterval(addText, 400);
-    	}, 2000);
-	}
+label > input {
+	display:none;	/* アップロードボタンのスタイルを無効にする */
+	width: 100%;
+}
+label {
+	color: #fff;	/* ラベルテキストの色を指定する */
+	background-color: #ff1493;/* ラベルの背景色を指定する */
+	padding: 10px;	/* ラベルとテキスト間の余白を指定する */
+	border: double 2px #AAAAAA;/* ラベルのボーダーを指定する */
+	border-radius: 6px;
+	width: 100%;
+}
 
 
-	function render() {
-		canvasDrawImage();
-		canvasDrawLeft();
-		canvasDrawRight();
-		setTimeout(() => {grayScale();}, 1000);
-	}
+.canvas {
+	margin: 30px auto;
+	display: block;
+	width: 100%;
+	border: #a8a8a8 2px solid;
+}
 
 
-	function renderCOPY() {
-		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-		canvasDrawImage();
-		var count = 0;
-		var onTimeout = function() {
-				setInterval(() => {
-					count++;
-					if(count > 10) {
-						clearInterval();
-				    } else {
-				    	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-						canvasDrawImage();
-						lx += 5;
-						ly -= 5;
-						rx -= 5;
-						ry += 5;
-						console.log(lx);
-						canvasDrawLeft(lx, ly);
-						canvasDrawRight(rx, ry);
-						console.log(count);
-				    }
-				}, 150);
-			}
-		onTimeout();
-	    setTimeout(() => {grayScale();}, 1000);
-	}
+#canvas1 {
+	position: absolute;
+	z-index: 1;
+}
+
+#canvas2 {
+	position: absolute;
+	z-index: 2;
+	width: 400;
+	height: 400;
+}
 
 
+#story {
+	position: absolute;
+	top: 570px;
+	left: 5px;
+	margin: 30px auto;
+	border-radius: 6px;
+	width: 100%;
+	height: 180px;
+	background: #fff;
+	box-shadow: 0, 0, 2px, rgba(0, 0, 0, .2) inset;
+	overflow: hidden;
+	text-align: left;
+	font-size: 20px;
+}
 
-	function handsRotate() {
-		ctx.translate(200, 80);
-	    ctx.rotate(Math.PI/180 * 5);
-	    ctx.translate(-200, -80);
-	}
+#story :focus {
+  outline: none;
+}
 
-	function strRotate() {
-		subCtx.translate(200, 80);
-	    subCtx.rotate(Math.PI/180 * 4);
-	    subCtx.translate(-200, -80);
-	}
+p {
+	position: relative;
+}
 
+#btn {
+  position: absolute;
+  top: 950px;
+  left: 35px;
+  width: 90%;
+  display: block;
+  border-bottom: solid #333 4px;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: .2em;
+  text-decoration: none;
+  text-align: center;
+  background-color: #4682b4;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, .2);
+  user-select: none;
+}
 
-	//グレースケール
-	function grayScale() {
-		var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imageData.data;
-        var dataMiddle = data.slice(717200, 4035000);
-
-        var num = dataMiddle.length;
-        var pix = num / 4;
-
-        console.log(imageData);
-        console.log(data);
-        console.log(dataMiddle);
-        console.log(num);
-        console.log(pix);
-
-
-        for(var i = 0; i < pix; i++){
-        	var r = dataMiddle[i*4];
-        	var g = dataMiddle[i*4 + 1];
-        	var b = dataMiddle[i*4 + 2];
-        	var a = dataMiddle[i*4 + 3];
-
-        	var g = parseInt((r*30 + g*59 + b*11) / 100);
-        	dataMiddle[i*4] = g;
-        	dataMiddle[i*4 + 1] = g;        	        	        	
-        	dataMiddle[i*4 + 2] = g;	        	
-        }
-
-        console.log(data);
-        console.log(imageData);
-        console.log(dataMiddle);
-
-        data.set(dataMiddle, 717200);
-
-        console.log(data);
-        ctx.putImageData(imageData, 0, 0);
-	}	
-
-
-
-
-	// Canvas上に画像を表示する
-	function canvasDrawImage() {
-    // canvas内の要素をクリアする
-	    // Canvas上に画像を表示
-	    var img1 = new Image();
-	    img1.src = uploadImgSrc;
-	    img1.onload = function() {
-	    	if (img1.width > img1.height) {
-            h = TRIM_SIZE;
-            w = img1.width * (TRIM_SIZE / img1.height);
-            xOffset = -(w - TRIM_SIZE) / 2;
-            yOffset = 0;
-        } else {
-            w = TRIM_SIZE;
-            h = img1.height * (TRIM_SIZE / img1.width);
-            yOffset = -(h - TRIM_SIZE) / 2;
-            xOffset = 0;
-        }
-        ctx.drawImage(img1, xOffset, yOffset, w, h);
-
-	    }
-	}
-
-	function canvasDrawLeft() {
-		var img2 = new Image();
-	    img2.onload = function() {
-	    	ctx.save();
-	    	handsRotate();
-	        ctx.drawImage(img2, endLX, endLY, 1710, 1450);
-	    	ctx.restore();
-	    }
-
-		img2.src = "./img/left.png";
-
-	}
-
-	function canvasDrawRight() {
-
-	    var img3 = new Image();
-	    img3.onload = function() {
-	    	ctx.save();
-			handsRotate();
-	    	ctx.drawImage(img3, endRX, endRY, 1800, 1332);
-	    	ctx.restore();
-		}
-	    img3.src = "./img/right.png";
-	}
-
-	// Canvas上にテキストを表示する
-	function addTextCOPY() {
-		var text = document.getElementById("story").value;
-			render();
-			strRotate;
-			console.log(text);
-			var fontSize = 12;
-			var x = 30;
-			var y = 60;
-			ctx.beginPath();
-			ctx.font = "bold 12px serif";
-			var lineHeight = 1;
-    		ctx.textBaseline = 'middle';
-    		ctx.fillStyle = 'rgba(0, 0, 255, 1.0)';
-
-			for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
-				var line = lines[i] ;
-				var addY = fontSize ;
-				console.log(line);
-			    console.log(addY);
-				if ( i ) addY += fontSize * lineHeight * i ;
-
-				ctx.fillText( line, x + 0, y + addY ) ;
-				btn.href = canvas.toDataURL("image/png");
-				console.log(btn.href);
-			}
-
-	}
-
-
-
-	function addText() {
-		var text = document.getElementById("story").value;
-			subCtx.clearRect(0, 0, 9999, 9999);
-			console.log(text);
-			var fontSize = 52;
-			var x = 550;
-			var y = 450;
-			subCtx.save();
-			strRotate();
-			subCtx.beginPath();
-			subCtx.font = "bold 52px 游ゴシック";
-			var lineHeight = 1.4;
-    		subCtx.textBaseline = 'middle';
-    		subCtx.textAlign = "center";
-
-			for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
-				var line = lines[i] ;
-				var addY = fontSize ;
-				var textWidth = subCtx.measureText(line).width;
-				console.log(textWidth);
-				if ( i ) addY += fontSize * lineHeight * i ;
-				if (l > 1) addY -= fontSize * l / 2 ;
-				if (text % 17 === 0) text + "\n";
-				subCtx.fillStyle = '#000';
-    			subCtx.fillRect(x - textWidth / 2, y + addY - 23, textWidth, fontSize + 2);
-				subCtx.strokeStyle = '#000';
-    			subCtx.lineWidth = 5;
-    			subCtx.strokeRect(x - textWidth / 2, y + addY - 23, textWidth, fontSize + 2);
-    			subCtx.fillStyle = 'rgba(255, 255, 255, 1.0)';
-				subCtx.fillText( line, x + 0, y + addY ) ;
-			}
-			subCtx.restore();
-			console.log(line);
-			console.log(addY);
-	}
-
-		// ファイルが指定された時にloadLocalImage()を実行
-	file.addEventListener('change', loadLocalImage, false);
-
-	btn.addEventListener("click", downloadImg, false);
-
-	function downloadImg() {
-			ctx.drawImage(subCanvas, 0, 0);
-			var newImg = canvas.toDataURL("image/png");
-			btn.setAttribute("href", newImg);
-			console.log(btn.href);
-	}
-} 
+background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
