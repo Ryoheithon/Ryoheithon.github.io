@@ -248,10 +248,9 @@ window.onload = () => {
 			strRotate();
 			subCtx.beginPath();
 			subCtx.font = "bold 52px 游ゴシック";
-			var lineHeight = 1.2;
+			var lineHeight = 1.4;
     		subCtx.textBaseline = 'middle';
     		subCtx.textAlign = "center";
-    		subCtx.fillStyle = 'rgba(255, 255, 255, 1.0)';
 
 			for( var lines=text.split( "\n" ), i=0, l=lines.length; l>i; i++ ) {
 				var line = lines[i] ;
@@ -261,6 +260,12 @@ window.onload = () => {
 				if ( i ) addY += fontSize * lineHeight * i ;
 				if (l > 1) addY -= fontSize * l / 2 ;
 				if (text % 17 === 0) text + "\n";
+				subCtx.fillStyle = '#000';
+    			subCtx.fillRect(x - textWidth / 2, y + addY - 23, textWidth, fontSize + 2);
+				subCtx.strokeStyle = '#000';
+    			subCtx.lineWidth = 5;
+    			subCtx.strokeRect(x - textWidth / 2, y + addY - 23, textWidth, fontSize + 2);
+    			subCtx.fillStyle = 'rgba(255, 255, 255, 1.0)';
 				subCtx.fillText( line, x + 0, y + addY ) ;
 			}
 			subCtx.restore();
